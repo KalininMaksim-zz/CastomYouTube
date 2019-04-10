@@ -1,7 +1,7 @@
 const switcher = document.querySelector('#cbx'),
-      more = document.querySelector('.more'),
-      modal = document.querySelector('.modal'),
-      videos = document.querySelectorAll('.videos__item');
+  more = document.querySelector('.more'),
+  modal = document.querySelector('.modal'),
+  videos = document.querySelectorAll('.videos__item');
 let player;
 
 function bindSlideToggle(trigger, boxBody, content, openClass) {
@@ -10,10 +10,10 @@ function bindSlideToggle(trigger, boxBody, content, openClass) {
     'active': false
   };
   const box = document.querySelector(boxBody),
-        boxContent = document.querySelector(content);
+    boxContent = document.querySelector(content);
   button.element.addEventListener('click', () => {
-    if ( button.active === false) { // Проверяем меню на неактивность
-      button.active = true;         // Если она не активна - делаем её активной
+    if (button.active === false) { // Проверяем меню на неактивность
+      button.active = true; // Если она не активна - делаем её активной
       box.style.height = boxContent.clientHeight + 'px';
       box.classList.add(openClass); // Активный класс для меню
     } else {
@@ -27,7 +27,7 @@ bindSlideToggle('.hamburger', '[data-slide="nav"]', '.header__menu', 'slide-acti
 
 function switcherMode() {
   if (night === false) {
-      night = true;
+    night = true;
     // document.body.style.backgroundColor = '#000';
     document.body.classList.add('night')
     document.querySelectorAll('.hamburger > line').forEach(item => {
@@ -44,7 +44,7 @@ function switcherMode() {
 
     document.querySelector('.header__item-descr').style.color = '#fff'
 
-    document.querySelector('.logo > img').src='logo/youtube_night.svg'
+    document.querySelector('.logo > img').src = 'logo/youtube_night.svg'
   } else {
     night = false;
     document.body.classList.remove('night')
@@ -62,7 +62,7 @@ function switcherMode() {
 
     document.querySelector('.header__item-descr').style.color = '#000'
 
-    document.querySelector('.logo > img').src='logo/youtube.svg'
+    document.querySelector('.logo > img').src = 'logo/youtube.svg'
   }
 }
 
@@ -75,7 +75,8 @@ const data = [
   ['img/thumb_3.webp', 'img/thumb_4.webp', 'img/thumb_5.webp'],
   ['#3 Верстка на flexbox CSS | Блок преимущества и галерея | Марафон верстки | Артем Исламов',
     '#2 Установка spikmi и работа с ветками на Github | Марафон вёрстки Урок 2',
-    '#1 Верстка реального заказа landing page | Марафон верстки | Артем Исламов'],
+    '#1 Верстка реального заказа landing page | Марафон верстки | Артем Исламов'
+  ],
   ['3,6 тыс. просмотров', '4,2 тыс. просмотров', '28 тыс. просмотров'],
   ['X9SmcY3lM-U', '7BvHoh0BrMw', 'mC8JW_aG2EM']
 ];
@@ -84,7 +85,7 @@ more.addEventListener('click', () => {
   const videosWrapper = document.querySelector('.videos__wrapper');
   more.remove();
 
-  for(let i = 0; i < data[0].length; i++) {
+  for (let i = 0; i < data[0].length; i++) {
     let card = document.createElement('a');
     card.classList.add('videos__item', 'videos__item-active');
     card.setAttribute('data-url', data[3][i]);
@@ -101,5 +102,47 @@ more.addEventListener('click', () => {
     setTimeout(() => {
       card.classList.remove('videos__item-active')
     }, 10);
+    bindNewMadal(card);
   }
+  sliceTitle('.videos__item-descr', 100);
 });
+
+function sliceTitle(video, count) {
+  document.querySelectorAll(video).forEach(item => {
+    item.textContent.trim();
+
+    if (item.textContent.length < count) {
+      return;
+    } else {
+      const str = item.textContent.slice(0, count + 1) + "...";
+      item.textContent = str;
+
+    }
+  });
+}
+sliceTitle('.videos__item-descr', 100);
+
+function openModal() {
+  modal.style.display = 'block';
+}
+
+function closeModal() {
+  modal.style.display = 'none';
+}
+
+function bindeModal(cards) {
+  cards.forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal();
+    });
+  });
+}
+bindeModal(videos);
+
+function bindNewMadal(card) {
+  card.addEventListener('click', (e) => {
+    e.preventDefault();
+    openModal();
+  });
+}
