@@ -102,6 +102,11 @@ more.addEventListener('click', () => {
     setTimeout(() => {
       card.classList.remove('videos__item-active')
     }, 10);
+    // if(night === true) {
+    //   card
+
+    // }
+
     bindNewMadal(card);
   }
   sliceTitle('.videos__item-descr', 100);
@@ -152,8 +157,14 @@ function bindNewMadal(card) {
   });
 }
 
-modal.addEventListener('click', (e) => {
-  if (!e.target.classList.contains('modal__body')) {
+// modal.addEventListener('click', (e) => {
+//   if (!e.target.classList.contains('modal__body')) {
+//     closeModal();
+//   }
+// });
+
+document.addEventListener('keydown', (e) => {
+  if (e.keyCode === 27) {
     closeModal();
   }
 });
