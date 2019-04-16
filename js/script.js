@@ -183,7 +183,10 @@ function search(target) {
     });
   }).then(function(response){
     console.log(response.result)
-    videosWrapper.innerHTML = '';
+    // videosWrapper.innerHTML = '';
+    while(videosWrapper.firstChild) {
+      videosWrapper.removeChild(videosWrapper.firstChild);
+    }
 
     response.result.items.forEach(item => {
       let card = document.createElement('a');
@@ -225,6 +228,7 @@ document.querySelector('.search').addEventListener('submit', (e) => {
   e.preventDefault();
   gapi.load('client', () => {
     search(document.querySelector('.search > input').value)
+    document.querySelector('.search > input').value = '';
   });
 })
 
@@ -311,3 +315,5 @@ function loadVideo(id) {
 }
 
 // api ключ  --> AIzaSyA3WGyWos-HIZqo6pe4YgzTij78un5mOWU
+// https://developers.google.com/youtube/v3/docs/search
+// https://console.developers.google.com/apis/dashboard?project=my-project-castomyoutube
